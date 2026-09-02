@@ -228,11 +228,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3599643873612951814, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3599643873612951814, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3599643873612951814, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
       propertyPath: m_LocalPosition.z
@@ -265,6 +265,34 @@ PrefabInstance:
     - target: {fileID: 3599643873612951814, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619802404867140428, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
+      propertyPath: tint.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619802404867140428, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
+      propertyPath: tint.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619802404867140428, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
+      propertyPath: tint.g
+      value: 0.6312542
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619802404867140428, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
+      propertyPath: tint.r
+      value: 0.57036066
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619802404867140428, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
+      propertyPath: colorTint
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619802404867140428, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
+      propertyPath: handlePosition.x
+      value: 0.57036066
+      objectReference: {fileID: 0}
+    - target: {fileID: 8619802404867140428, guid: 97a366757a08c734b8c6f0f329c93af4, type: 3}
+      propertyPath: handlePosition.y
+      value: 0.6312542
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 using Unity.VisualScripting;
+using System.Net.WebSockets;
 
+[ExecuteInEditMode]
 public class ChessPiece : MonoBehaviour
 {
 
@@ -26,23 +28,13 @@ public class ChessPiece : MonoBehaviour
     };
 
     private enum ChessPieceType { Pawn, Rook, Knight, Bishop, Queen, King }
-    private enum ColorTint { Red, Yellow, Green, Cyan, Blue, White }    
+    private enum ColorTint { Red, Yellow, Green, Cyan, Blue, White , Custom }    
     
     [SerializeField] private ColorTint colorTint;
-    private Color tint;
+    public Color tint;
+    public Vector3 handlePosition = new Vector3(1f, 0f, 0f);
 
     [SerializeField] private ChessPieceType chessPiece;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     private void OnDrawGizmos() {
         tint = colorTint switch
@@ -55,6 +47,13 @@ public class ChessPiece : MonoBehaviour
             ColorTint.White => Color.white,
             _ => Color.white
         };
+
+        if (handlePosition != new Vector3(0f, 0f, 0f))
+        {
+            tint = new Color(handlePosition.x, handlePosition.y, handlePosition.z);
+            colorTint = ColorTint.Custom;
+        }
+
         Gizmos.DrawIcon(transform.position, chessPiece.ToString(), true, tint);
     }
 
@@ -167,6 +166,47 @@ public class ChessPiece : MonoBehaviour
                 break;
             default:
                 break;
+        }
+    }
+}
+
+[CustomEditor(typeof(ChessPiece))]
+public class ChessPieceEditor : Editor
+{
+    // makes a handle that can be used to make a custom color on the chess piece
+    public void OnSceneGUI()
+    {
+        ChessPiece piece = (ChessPiece)target;
+        Transform transform = piece.transform;
+
+        // calculate handle's world position relative to the chess piece
+        Vector3 worldHandlePos = transform.position + piece.handlePosition;
+
+        // sets color of the handle to the current color of the piece 
+        Handles.color = new Color(piece.handlePosition.x, piece.handlePosition.y, piece.handlePosition.z);
+
+        // tracks for scene changes
+        EditorGUI.BeginChangeCheck();
+
+        // draws the free move handle
+        Vector3 newPos = Handles.FreeMoveHandle(piece.handlePosition, 0.25f, Vector3.zero, Handles.CircleHandleCap);
+
+        // if the handle is dragged, update position & log changes
+        if (EditorGUI.EndChangeCheck())
+        {
+            Undo.RecordObject(piece, "Change piece color via handle");
+
+            // converts world position into local position (color)
+            Vector3 colorOffset = newPos - transform.position;
+
+            // clamps RGB values
+            colorOffset.x = Mathf.Clamp01(colorOffset.x);
+            colorOffset.y = Mathf.Clamp01(colorOffset.y);
+            colorOffset.z = Mathf.Clamp01(colorOffset.z);
+
+            // changes handlePosition variable to the new color
+            piece.handlePosition = colorOffset;
+            EditorUtility.SetDirty(piece);
         }
     }
 }
