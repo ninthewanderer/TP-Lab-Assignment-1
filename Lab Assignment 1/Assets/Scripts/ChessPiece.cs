@@ -67,6 +67,7 @@ public class ChessPiece : MonoBehaviour
             case ChessPieceType.Pawn:
                 points = new Vector3[]
                 {
+                    // draw line one vertical
                    this.transform.position,
                     new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z)
 
@@ -76,6 +77,7 @@ public class ChessPiece : MonoBehaviour
             case ChessPieceType.Rook:
                 points = new Vector3[]
                 {
+                    // draw line horizontal and vertical
                    this.transform.position,
                     new Vector3(this.transform.position.x, this.transform.position.y + 8, this.transform.position.z),
                     this.transform.position,
@@ -88,36 +90,80 @@ public class ChessPiece : MonoBehaviour
                 Gizmos.DrawLineList(points);
                 break;
             case ChessPieceType.Knight:
-                points = new Vector3[]
-               {
-                   this.transform.position,
-                    new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z),
-                    new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z),
-                    new Vector3(this.transform.position.x-1, this.transform.position.y + 2, this.transform.position.z),
-                    new Vector3(this.transform.position.x, this.transform.position.y + 2, this.transform.position.z),
-                    new Vector3(this.transform.position.x+1, this.transform.position.y + 2, this.transform.position.z),
-                    this.transform.position,
-                    new Vector3(this.transform.position.x, this.transform.position.y - 2, this.transform.position.z),
-                    new Vector3(this.transform.position.x, this.transform.position.y - 2, this.transform.position.z),
-                    new Vector3(this.transform.position.x-1, this.transform.position.y - 2, this.transform.position.z),
-                    new Vector3(this.transform.position.x, this.transform.position.y - 2, this.transform.position.z),
-                    new Vector3(this.transform.position.x+1, this.transform.position.y - 2, this.transform.position.z),
-                    this.transform.position,
-               };
-                Gizmos.DrawLineList(points);
+                Gizmos.DrawCube(this.transform.position + new Vector3(2, 1, 0), new Vector3 (1, 1, 1));
+                Gizmos.DrawCube(this.transform.position + new Vector3(1, 2, 0), new Vector3 (1, 1, 1));
+                Gizmos.DrawCube(this.transform.position + new Vector3(-1, 2, 0), new Vector3 (1, 1, 1));
+                Gizmos.DrawCube(this.transform.position + new Vector3(-2, 1, 0), new Vector3 (1, 1, 1));
+                Gizmos.DrawCube(this.transform.position + new Vector3(-2, -1, 0), new Vector3 (1, 1, 1));
+                Gizmos.DrawCube(this.transform.position + new Vector3(-1, -2, 0), new Vector3 (1, 1, 1));
+                Gizmos.DrawCube(this.transform.position + new Vector3(1, -2, 0), new Vector3 (1, 1, 1));
+                Gizmos.DrawCube(this.transform.position + new Vector3(2, -1, 0), new Vector3 (1, 1, 1));    
+
+                // highlight squares in an L shape
                 break;
             case ChessPieceType.Bishop:
-                Gizmos.DrawLineList(diagonalPoints);
+                points = new Vector3[]
+                {
+                    // draw line diagonal
+                    this.transform.position,
+                    new Vector3(this.transform.position.x + 8, this.transform.position.y + 8, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x - 8, this.transform.position.y - 8, this.transform.position.z),
+
+                    this.transform.position,
+                    new Vector3(this.transform.position.x + 8, this.transform.position.y - 8, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x - 8, this.transform.position.y + 8, this.transform.position.z)
+                };
+                Gizmos.DrawLineList(points);
                 break;
             case ChessPieceType.Queen:
-                Gizmos.DrawLineList(verticalPoints);
-                Gizmos.DrawLineList(horizontalPoints);
-                Gizmos.DrawLineList(diagonalPoints);
+                points = new Vector3[]
+                {
+                    // draw line diagonal & vertical & horizontal
+                    this.transform.position,
+                    new Vector3(this.transform.position.x, this.transform.position.y + 8, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x + 8, this.transform.position.y, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x - 8, this.transform.position.y, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x, this.transform.position.y - 8, this.transform.position.z),
+
+                    this.transform.position,
+                    new Vector3(this.transform.position.x + 8, this.transform.position.y + 8, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x - 8, this.transform.position.y - 8, this.transform.position.z),
+
+                    this.transform.position,
+                    new Vector3(this.transform.position.x + 8, this.transform.position.y - 8, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x - 8, this.transform.position.y + 8, this.transform.position.z)
+                };
+                Gizmos.DrawLineList(points);
                 break;
             case ChessPieceType.King:
-                Gizmos.DrawLineList(verticalPoints);
-                Gizmos.DrawLineList(horizontalPoints);
-                Gizmos.DrawLineList(diagonalPoints);
+                points = new Vector3[]
+                {
+                    // draw line diagonal & vertical & horizontal
+                    this.transform.position,
+                    new Vector3(this.transform.position.x, this.transform.position.y + 1, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x + 1, this.transform.position.y, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x - 1, this.transform.position.y, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x, this.transform.position.y - 1, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x + 1, this.transform.position.y + 1, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x - 1, this.transform.position.y - 1, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x + 1, this.transform.position.y - 1, this.transform.position.z),
+                    this.transform.position,
+                    new Vector3(this.transform.position.x - 1, this.transform.position.y + 1, this.transform.position.z)
+                };
+                Gizmos.DrawLineList(points);
                 break;
             default:
                 break;
